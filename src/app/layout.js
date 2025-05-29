@@ -44,14 +44,12 @@ export default function RootLayout({ children }) {
             </Header>
             <Content className='bg-blue-200'>
               <div
-                className='p-4 m-4 bg-white'
+                className='p-4 bg-white'
               >
                 {children}
               </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-              Ant Design ©{new Date().getFullYear()} Created by Ant UED
-            </Footer>
+
           </Layout>
         </AntdRegistry>
       </body>

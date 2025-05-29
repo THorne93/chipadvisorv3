@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.6.1",
     "@ant-design/nextjs-registry": "^1.0.2",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@prisma/client": "^6.8.2",
     "antd": "^5.25.3",
+    "mysql2": "^3.14.1",
     "next": "15.3.2",
+    "prisma": "^6.8.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
