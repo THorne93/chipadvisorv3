@@ -29,7 +29,7 @@ CREATE TABLE "reviews" (
     "author" INTEGER,
     "title" TEXT,
     "content" TEXT,
-    "location" TEXT,
+    "location" JSON,
 
     CONSTRAINT "reviews_pkey" PRIMARY KEY ("id")
 );

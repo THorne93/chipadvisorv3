@@ -13,7 +13,7 @@ CREATE TABLE "Review" (
     "authorId" INTEGER NOT NULL,
     "title" TEXT,
     "content" TEXT,
-    "location" TEXT,
+    "location" JSON,
 
     CONSTRAINT "Review_pkey" PRIMARY KEY ("id")
 );
