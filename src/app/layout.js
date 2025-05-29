@@ -13,7 +13,7 @@ const items = [
   },
   {
     key: 'newreview',
-    label: <a href="/about">New Review</a>,
+    label: <a href="/users">New Review</a>,
   },
   {
     key: 'charts',
