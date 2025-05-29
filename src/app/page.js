@@ -1,10 +1,10 @@
-import Image from "next/image";
+import React from 'react';
+import { Button } from 'antd';
 
-export default function Home() {
-  return (
-    <main>
-      <h1>If you can read this, you're gay</h1>
-    </main>
-  );
-}
+const Home = () => (
+  <div className="App">
+    <h1 className='text-xl p-4'>Welcome to chip advisor </h1>
+  </div>
+);
 
+export default Home;
