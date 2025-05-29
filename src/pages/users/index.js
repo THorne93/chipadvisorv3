@@ -1,20 +1,25 @@
-import { prisma } from '../../../lib/prisma';
+import prisma from '@/lib/prisma';
 
-export default async function Page() {
+export default async function UsersPage() {
   const users = await prisma.users.findMany({
     include: { reviews: true },
   });
 
   return (
-    <div>
+    <main>
       <h1>Users</h1>
       <ul>
-        {users.map((user) => (
+        {users.map(user => (
           <li key={user.id}>
-            {user.username} - {user.reviews.length} reviews
+            {user.username} ({user.email})
+            <ul>
+              {user.reviews.map(review => (
+                <li key={review.id}>{review.title}</li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
-    </div>
+    </main>
   );
 }
