@@ -9,7 +9,12 @@ async function main() {
       review: {
         title: 'Amazing cafe',
         content: 'I loved the coffee and cozy interior.',
-        location: 'Amsterdam',
+        location: {
+          name: 'Café de Lune',
+          address: '123 Canal St',
+          city: 'Amsterdam',
+          country: 'Netherlands',
+        },
       },
     },
     {
@@ -18,7 +23,12 @@ async function main() {
       review: {
         title: 'Great museum',
         content: 'Lots of interesting exhibits!',
-        location: 'London',
+        location: {
+          name: 'History Museum',
+          address: '456 Queen’s Rd',
+          city: 'London',
+          country: 'United Kingdom',
+        },
       },
     },
     {
@@ -27,7 +37,12 @@ async function main() {
       review: {
         title: 'Beautiful park',
         content: 'Very peaceful and green.',
-        location: 'Kyoto',
+        location: {
+          name: 'Maruyama Park',
+          address: '78 Sakura Ln',
+          city: 'Kyoto',
+          country: 'Japan',
+        },
       },
     },
     {
@@ -36,7 +51,12 @@ async function main() {
       review: {
         title: 'Good pizza',
         content: 'Tasted just like Italy.',
-        location: 'New York',
+        location: {
+          name: 'Luigi’s Pizzeria',
+          address: '12 Mulberry St',
+          city: 'New York',
+          country: 'USA',
+        },
       },
     },
     {
@@ -45,10 +65,16 @@ async function main() {
       review: {
         title: 'Awesome beach',
         content: 'Clear water and white sand.',
-        location: 'Bali',
+        location: {
+          name: 'Dream Beach',
+          address: '99 Sunset Blvd',
+          city: 'Bali',
+          country: 'Indonesia',
+        },
       },
     },
   ];
+
 
   for (const user of usersData) {
     const createdUser = await prisma.users.create({
