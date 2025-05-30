@@ -1,97 +1,41 @@
 const { PrismaClient } = require('@prisma/client');
+const { faker } = require('@faker-js/faker');
+
 const prisma = new PrismaClient();
 
 async function main() {
-  const usersData = [
-    {
-      username: 'alice',
-      email: 'alice@example.com',
-      review: {
-        title: 'Amazing cafe',
-        content: 'I loved the coffee and cozy interior.',
-        location: {
-          name: 'Café de Lune',
-          address: '123 Canal St',
-          city: 'Amsterdam',
-          country: 'Netherlands',
-        },
-      },
-    },
-    {
-      username: 'bob',
-      email: 'bob@example.com',
-      review: {
-        title: 'Great museum',
-        content: 'Lots of interesting exhibits!',
-        location: {
-          name: 'History Museum',
-          address: '456 Queen’s Rd',
-          city: 'London',
-          country: 'United Kingdom',
-        },
-      },
-    },
-    {
-      username: 'carol',
-      email: 'carol@example.com',
-      review: {
-        title: 'Beautiful park',
-        content: 'Very peaceful and green.',
-        location: {
-          name: 'Maruyama Park',
-          address: '78 Sakura Ln',
-          city: 'Kyoto',
-          country: 'Japan',
-        },
-      },
-    },
-    {
-      username: 'dave',
-      email: 'dave@example.com',
-      review: {
-        title: 'Good pizza',
-        content: 'Tasted just like Italy.',
-        location: {
-          name: 'Luigi’s Pizzeria',
-          address: '12 Mulberry St',
-          city: 'New York',
-          country: 'USA',
-        },
-      },
-    },
-    {
-      username: 'eve',
-      email: 'eve@example.com',
-      review: {
-        title: 'Awesome beach',
-        content: 'Clear water and white sand.',
-        location: {
-          name: 'Dream Beach',
-          address: '99 Sunset Blvd',
-          city: 'Bali',
-          country: 'Indonesia',
-        },
-      },
-    },
-  ];
+  for (let i = 0; i < 50; i++) {
+    const username = faker.internet.userName();
+    const email = faker.internet.email();
 
+    const review = {
+      title: faker.lorem.words(3),
+      content: faker.lorem.sentences(10),
+      location: {
+        name: faker.company.name(),
+        address: faker.location.streetAddress(),
+        city: faker.location.city(),
+        country: faker.location.country(),
+      },
+      score: parseFloat((faker.number.float({ min: 0, max: 5, precision: 1 })).toFixed(1)),
+    };
 
-  for (const user of usersData) {
-    const createdUser = await prisma.users.create({
+    const user = await prisma.users.create({
       data: {
-        username: user.username,
-        email: user.email,
+        username,
+        email,
         reviews: {
           create: {
-            title: user.review.title,
-            content: user.review.content,
-            location: user.review.location,
+            title: review.title,
+            content: review.content,
+            score: review.score,
+            location: review.location, // assuming 'location' is a JSON column
           },
         },
       },
     });
 
-    console.log(`Seeded user: ${createdUser.username}`);
+    console.log(`Created user: ${user.username}`);
   }
 }
 

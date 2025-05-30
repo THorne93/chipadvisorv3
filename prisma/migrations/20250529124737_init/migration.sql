@@ -30,6 +30,7 @@ CREATE TABLE "reviews" (
     "title" TEXT,
     "content" TEXT,
     "location" JSON,
+    "score" FLOAT,
 
     CONSTRAINT "reviews_pkey" PRIMARY KEY ("id")
 );

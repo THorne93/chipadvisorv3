@@ -17,13 +17,15 @@
     "@ant-design/icons": "^5.6.1",
     "@ant-design/nextjs-registry": "^1.0.2",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "@faker-js/faker": "^9.8.0",
     "@prisma/client": "^6.8.2",
     "@prisma/extension-accelerate": "^2.0.1",
     "antd": "^5.25.3",
     "mysql2": "^3.14.1",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-simple-star-rating": "^5.1.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

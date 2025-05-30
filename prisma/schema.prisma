@@ -20,8 +20,9 @@ model reviews {
   author   Int?
   title    String?
   content  String?
-  location String?
-
+  location Json?
+  score Float?
+  
   users users? @relation(name: "fk_reviews_author_users_id", fields: [author], references: [id])
 }
 

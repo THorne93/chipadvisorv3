@@ -14,6 +14,7 @@ CREATE TABLE "Review" (
     "title" TEXT,
     "content" TEXT,
     "location" JSON,
+    "score" FLOAT,
 
     CONSTRAINT "Review_pkey" PRIMARY KEY ("id")
 );
