@@ -6,8 +6,7 @@ import { Layout, Menu, Button, Dropdown } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import './globals.css';
 
-const { Header, Content } = Layout;
-
+const { Header, Content, Footer } = Layout;
 const items = [
   {
     key: 'home',
@@ -70,17 +69,20 @@ const ResponsiveHeader = () => {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="overflow-x-hidden">
-      <body className="overflow-x-hidden min-h-screen bg-yellow-50">
+      <body className="overflow-x-hidden min-h-screen bg-yellow-50" style={{ margin: 0, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AntdRegistry>
-          <Layout className="min-h-screen w-screen overflow-x-hidden">
+          <Layout style={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <ResponsiveHeader />
-            <Content className="bg-yellow-50">
+            <Content className='bg-yellow-50' style={{ flex: '1 0 auto', padding: '24px 0' }}>
               <div className="App">
                 <div className="sm:w-5/6 w-full pt-6 mx-auto">
                   {children}
                 </div>
               </div>
             </Content>
+            <Footer style={{ textAlign: 'center', backgroundColor: '#f0f0f0', flexShrink: 0 }}>
+              © {new Date().getFullYear()} Your Company Name. All rights reserved.
+            </Footer>
           </Layout>
         </AntdRegistry>
       </body>

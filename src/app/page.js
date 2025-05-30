@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { Rating } from 'react-simple-star-rating'
 import { XOutlined, InstagramOutlined, FacebookOutlined, MailOutlined } from '@ant-design/icons';
 
@@ -10,45 +10,46 @@ const Home = () => {
   const [userTot, setUserTot] = useState(1);
   const [rating, setRating] = useState(2)
   const [expandedReviewId, setExpandedReviewId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   function slugify(text) {
     return text.toLowerCase().replace(/\s+/g, '-');
   }
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch('/api/reviews');
-        const data = await res.json();
-        setReviews(data);
+        setLoading(true); // start loading before fetches
+
+        const [reviewsRes, reviewCountRes, userCountRes] = await Promise.all([
+          fetch('/api/reviews'),
+          fetch('/api/reviews/count'),
+          fetch('/api/users/count'),
+        ]);
+
+        if (!reviewsRes.ok || !reviewCountRes.ok || !userCountRes.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const reviewsData = await reviewsRes.json();
+        const reviewCountData = await reviewCountRes.json();
+        const userCountData = await userCountRes.json();
+
+        setReviews(reviewsData);
+        setReviewTot(reviewCountData.totalReviews);
+        setUserTot(userCountData.totalUsers);
       } catch (error) {
-        console.error('Failed to fetch users:', error);
+        console.error('Failed to fetch data:', error);
+      } finally {
+        setLoading(false);
       }
     };
-    const fetchReviewCount = async () => {
-      try {
-        const res = await fetch('/api/reviews/count');
-        const data = await res.json();
-        setReviewTot(data.totalReviews);
-      } catch (error) {
-        console.error('Failed to fetch users:', error);
-      }
-    };
-    const fetchUserCount = async () => {
-      try {
-        const res = await fetch('/api/users/count');
-        const data = await res.json();
-        setUserTot(data.totalUsers);
-      } catch (error) {
-        console.error('Failed to fetch users:', error);
-      }
-    };
-    fetchUserCount();
-    fetchReviews();
-    fetchReviewCount();
+
+    fetchData();
   }, []);
 
-  return (
 
+
+  return (
     <div>
       <div className="w-full flex flex-col sm:flex-row items-center justify-between mb-8">
         <div className="sm:w-3/4 w-full flex flex-col sm:flex-row items-center gap-4 mb-4 mx-auto sm:mb-0">
@@ -95,7 +96,7 @@ const Home = () => {
           </div>
 
           <div className="sm:p-3 p-1 bg-gray-100 w-full rounded-md shadow-sm">
-            <p className="text-xl sm:text-2xl font-bold text-blue-700">{userTot}</p>
+            <span className="text-xl sm:text-2xl font-bold text-blue-700"> {loading ? <Spin size="default" /> : userTot}</span>
             <p className="text-sm sm:text-base text-gray-600">Users</p>
           </div>
 
@@ -105,7 +106,7 @@ const Home = () => {
           </div>
 
           <div className="sm:p-3 p-1 bg-gray-100 w-full rounded-md shadow-sm">
-            <p className="text-xl sm:text-2xl font-bold text-blue-700">{reviewTot}</p>
+            <span className="text-xl sm:text-2xl font-bold text-blue-700">{loading ? <Spin size="default" /> : reviewTot}</span>
             <p className="text-sm sm:text-base text-gray-600">Reviews</p>
           </div>
 
@@ -122,7 +123,9 @@ const Home = () => {
         <h2 className="text-xl text-center sm:text-left font-semibold text-gray-800">Latest Reviews</h2>
         <ul className="list-none text-gray-700">
           {reviews.length === 0 ? (
-            <li>Loading...</li>
+            <div className="flex justify-center items-center min-h-[200px]">
+              <Spin size="large" />
+            </div>
           ) : (
             reviews.map((review) => {
               const isExpanded = expandedReviewId === review.id;
