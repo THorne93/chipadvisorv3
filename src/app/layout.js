@@ -76,7 +76,9 @@ export default function RootLayout({ children }) {
             <ResponsiveHeader />
             <Content className="bg-yellow-50">
               <div className="App">
-                {children}
+                <div className="sm:w-5/6 w-full pt-6 mx-auto">
+                  {children}
+                </div>
               </div>
             </Content>
           </Layout>

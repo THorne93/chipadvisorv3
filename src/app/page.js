@@ -49,7 +49,7 @@ const Home = () => {
 
   return (
 
-    <div className="sm:w-5/6 w-full pt-6 mx-auto">
+    <div>
       <div className="w-full flex flex-col sm:flex-row items-center justify-between mb-8">
         <div className="sm:w-3/4 w-full flex flex-col sm:flex-row items-center gap-4 mb-4 mx-auto sm:mb-0">
           <div className='sm:w-1/6 w-full flex '>
@@ -57,10 +57,10 @@ const Home = () => {
               src="/assets/img/chiplogo.jpg" />
           </div>
           <div className="w-5/6 flex flex-col text-gray-700 text-base sm:text-lg leading-relaxed">
-            <h1 className="text-2xl sm:mb-0 mb-2 sm:text-3xl md:text-4xl font-bold text-gray-800">
+            <h1 className="text-2xl mb-2 sm:text-3xl md:text-4xl font-bold text-gray-800">
               Welcome to Chip Advisor
             </h1>
-            <p className='sm:mb-0 mb-2'>
+            <p className=' mb-2'>
               ChipAdvisor is a place where aficionados of potatoes can get together to find - or create - the perfect chip.
             </p>
             <div className="max-sm:flex max-sm:flex-row max-sm:justify-between">

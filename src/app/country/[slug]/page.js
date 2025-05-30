@@ -1,10 +1,13 @@
+// app/country/[slug]/page.js (server component)
 import { PrismaClient } from '@prisma/client';
+import Reviews from './Reviews';
 
 const prisma = new PrismaClient();
 
 export async function generateMetadata({ params }) {
+  const readableCountry = params.slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   return {
-    title: `Reviews for ${params.slug}`,
+    title: `Reviews for ${readableCountry}`,
   };
 }
 
@@ -16,26 +19,15 @@ export default async function CountryPage({ params }) {
     where: {
       location: {
         path: ['country'],
-        equals: readableCountry, 
+        equals: readableCountry,
       },
     },
   });
 
   return (
-    <div>
-      <h1>Reviews for {slug}</h1>
-      {reviews.length === 0 ? (
-        <p>No reviews found.</p>
-      ) : (
-        <ul>
-          {reviews.map((r) => (
-            <li key={r.id}>
-              <h2>{r.title}</h2>
-              <p>{r.content}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="mt-10 mx-auto w-3/4">
+      <h1>Reviews for {readableCountry}</h1>
+      <Reviews reviews={reviews} />
     </div>
   );
 }
